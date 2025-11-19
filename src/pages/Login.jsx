@@ -96,7 +96,7 @@ const Login = () => {
   }
 
   return (
-    <div className="relative h-screen flex items-center justify-center px-4 overflow-hidden bg-gradient-to-br from-dark-950 via-dark-900 to-dark-800">
+    <div className="relative h-full flex items-center  justify-center px-4 overflow-hidden bg-gradient-to-br from-dark-950 via-dark-900 to-dark-800">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
@@ -106,16 +106,16 @@ const Login = () => {
       <div className="relative w-full max-w-6xl flex items-center justify-center">
         {/* Left side - Login Form */}
         <div className="w-full lg:w-1/2 p-4 lg:p-8">
-          <div className="glass p-6 md:p-8 lg:p-10 rounded-3xl w-full sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
+          <div className="glass p-6 md:p-8 lg:px-20 rounded-3xl w-full sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
             {/* Logo */}
-            <div className="text-center mb-8">
-                <img className='w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto sm:mb-6 select-none pointer-events-none' src={logo} alt="Logo" />
+            <div className="text-center mb-6">
+                <img className='w-20= h-20 sm:w-28 sm:h-28 md:w-20 md:h-20 mx-auto sm:mb-6 select-none pointer-events-none' src={logo} alt="Logo" />
               <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
               {/* <p className="text-dark-300">Sign in to your account to continue coding</p> */}
             </div>
 
             {/* Login Form */}
-            <form onSubmit={submitForm} className="space-y-6">
+            <form onSubmit={submitForm} className="space-y-4">
               {/* Email Input */}
               <div className="space-y-2">
                 {/* <label className="text-sm font-medium text-dark-200">Email Address</label> */}

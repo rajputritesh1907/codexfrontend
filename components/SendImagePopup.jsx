@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { api_base_url } from '../src/helper';
 
 export default function SendImagePopup({ open, onClose }) {
   const [dragActive, setDragActive] = useState(false);
@@ -28,7 +29,7 @@ export default function SendImagePopup({ open, onClose }) {
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append('image', file);
-    const res = await fetch('http://localhost:3001/api/upload-image', {
+    const res = await fetch(`${api_base_url}/api/upload-image`, {
       method: 'POST',
       body: formData,
       credentials: 'include'

@@ -100,7 +100,7 @@ const SignUp = () => {
 
             {/* Sign Up Form */}
             {step === 'form' ? (
-            <form onSubmit={submitForm} className="space-y-6">
+            <form onSubmit={submitForm} className="space-y-4">
               {/* Username Input */}
               <div className="space-y-2">
                 {/* <label className="text-sm font-medium text-dark-200">Username</label> */}

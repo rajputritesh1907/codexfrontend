@@ -44,8 +44,8 @@ export default function OAuthCallback() {
 				<h1 className="text-xl font-semibold mb-2">Sign-in Error</h1>
 				<p className="text-gray-600 mb-4">{error}</p>
 				<div className="flex gap-2 justify-center">
-					<a href={`${window.location.protocol}//${window.location.hostname}:3001/auth/google`} className="px-4 py-2 bg-gray-200 rounded">Try Google</a>
-					<a href={`${window.location.protocol}//${window.location.hostname}:3001/auth/github`} className="px-4 py-2 bg-gray-900 text-white rounded">Try GitHub</a>
+					<a href={`${api_base_url}/auth/google`} className="px-4 py-2 bg-gray-200 rounded">Try Google</a>
+					<a href={`${api_base_url}/auth/github`} className="px-4 py-2 bg-gray-900 text-white rounded">Try GitHub</a>
 				</div>
 			</div>
 		</div>
