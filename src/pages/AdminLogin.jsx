@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { api_base_url } from '../helper';
 
 function AdminLogin() {
-  const API_URL = import.meta.env.VITE_BACKEND_URL;
+
   const [adminId, setAdminId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -29,7 +29,7 @@ function AdminLogin() {
       if (res.ok && data.success) {
         // Persist admin token (JWT fallback) so subsequent requests can authenticate
         if (data.adminToken) {
-          try { localStorage.setItem('adminToken', data.adminToken); } catch {}
+          try { localStorage.setItem('adminToken', data.adminToken); } catch { }
         }
         navigate('/admin/users');
       } else {
