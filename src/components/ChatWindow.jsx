@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MdClose, MdSend } from 'react-icons/md';
-import { api_base_url } from '../helper';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Storage key name (not the secret). The actual API key comes from Vite env.
+// Storage key name
 const GEMINI_STORAGE_KEY = 'gemini_chat_history';
 
 const ChatWindow = ({ chat, currentUser, onClose }) => {
@@ -38,27 +38,29 @@ const ChatWindow = ({ chat, currentUser, onClose }) => {
     e.preventDefault();
     if (!input.trim()) return;
     setLoading(true);
-    // Gemini bot only
-    setMessages((prev) => {
-      const updated = [...prev, { sender: currentUser || 'You', content: input, isUser: true }];
-      localStorage.setItem(GEMINI_STORAGE_KEY, JSON.stringify(updated));
-      return updated;
-    });
+
+    // Add user message
+    const newMessages = [...messages, { sender: currentUser || 'You', content: input, isUser: true }];
+    setMessages(newMessages);
+    localStorage.setItem(GEMINI_STORAGE_KEY, JSON.stringify(newMessages));
+
     try {
-      const res = await fetch(`${api_base_url}/chatbot/gemini`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input.trim() })
-      });
-      const data = await res.json();
+      const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+      const result = await model.generateContent(input.trim());
+      const response = await result.response;
+      const text = response.text();
+
       setMessages((prev) => {
-        const updated = [...prev, { sender: 'Gemini Bot', content: data.success ? data.response : 'Sorry, I could not process your request.', isBot: true }];
+        const updated = [...prev, { sender: 'Gemini Bot', content: text, isBot: true }];
         localStorage.setItem(GEMINI_STORAGE_KEY, JSON.stringify(updated));
         return updated;
       });
     } catch (err) {
+      console.error("Gemini Error:", err);
       setMessages((prev) => {
-        const updated = [...prev, { sender: 'Gemini Bot', content: 'Error connecting to Gemini API.' }];
+        const updated = [...prev, { sender: 'Gemini Bot', content: 'Error connecting to Gemini API. Please check your API key.', isBot: true }];
         localStorage.setItem(GEMINI_STORAGE_KEY, JSON.stringify(updated));
         return updated;
       });
